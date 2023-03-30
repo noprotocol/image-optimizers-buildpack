@@ -66,4 +66,14 @@ cp -v * "${BUILD_DIR}/.profile.d/" | indent
 
 cd ${WORKING_DIR}
 
-status "Added image optimizer and WebP binaries"
+status "Added image optimizer versions"
+
+echo "advpng: $(advpng --version | head -1)" | indent
+echo "gifsicle: $(gifsicle --version | head -1)" | indent
+echo "jpegoptim: $(jpegoptim --version | head -1)" | indent
+echo "jpegtran: $(jpegtran -V /dev/null 2>&1 | head -1)" | indent
+echo "optipng: $(optipng --version | head -1)" | indent
+echo "pngcrush: $(pngcrush -version)" | indent
+echo "pngquant: $(pngquant --version)" | indent
+
+status "Added WebP binaries"
