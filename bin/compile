@@ -75,5 +75,5 @@ echo "jpegtran: $(jpegtran -V /dev/null 2>&1 | head -1)" | indent
 echo "optipng: $(optipng --version | head -1)" | indent
 echo "pngcrush: $(pngcrush -version)" | indent
 echo "pngquant: $(pngquant --version)" | indent
-
-status "Added WebP binaries"
+echo "cwebp: $(cwebp -version)" | indent
+echo "dwebp: $(dwebp -version)" | indent
