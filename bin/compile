@@ -13,8 +13,9 @@ source "${WORKING_DIR}/bin/util/common.sh"
 # we do not 'set -o errtrace', because that would cause subshell failures to fire the trap twice, e.g. with someval=$(func_that_fails)
 trap 'err_trap' ERR
 
-status "Adding image optimizer binaries"
+status "Adding image optimizer and WebP binaries"
 
+status "Marking binaries as executable"
 # Marking binaries as executable
 chmod -R +x "${WORKING_DIR}/${VENDOR_DIR}"
 
@@ -24,10 +25,10 @@ mkdir -p "${BUILD_DIR}/${VENDOR_DIR}"
 # Switch to binaries folder
 cd "${WORKING_DIR}/${VENDOR_DIR}/${STACK}"
 
-# Copy to binaries folder
 cp -v * "${BUILD_DIR}/${VENDOR_DIR}" | indent
 
 # Switch back to working directory
+status "Switch back to working directory ${WORKING_DIR}"
 cd "${WORKING_DIR}"
 
 # Add binaries path to `PATH` environment
@@ -37,8 +38,9 @@ status "Make directories if they don't exist"
 
 mkdir -p /tmp/codon/vendor/bin
 
-status "Creating symlinks to optimizers for next buildpack(s)"
+status "Creating symlinks to optimizers and WebP binaries for next buildpack(s)"
 
+# Create symlinks to optimizers
 ln -s "${BUILD_DIR}/${VENDOR_DIR}/advpng" /tmp/codon/vendor/bin/advpng
 ln -s "${BUILD_DIR}/${VENDOR_DIR}/gifsicle" /tmp/codon/vendor/bin/gifsicle
 ln -s "${BUILD_DIR}/${VENDOR_DIR}/jpegoptim" /tmp/codon/vendor/bin/jpegoptim
@@ -46,6 +48,8 @@ ln -s "${BUILD_DIR}/${VENDOR_DIR}/jpegtran" /tmp/codon/vendor/bin/jpegtran
 ln -s "${BUILD_DIR}/${VENDOR_DIR}/optipng" /tmp/codon/vendor/bin/optipng
 ln -s "${BUILD_DIR}/${VENDOR_DIR}/pngcrush" /tmp/codon/vendor/bin/pngcrush
 ln -s "${BUILD_DIR}/${VENDOR_DIR}/pngquant" /tmp/codon/vendor/bin/pngquant
+ln -s "${BUILD_DIR}/${VENDOR_DIR}/cwebp" /tmp/codon/vendor/bin/cwebp
+ln -s "${BUILD_DIR}/${VENDOR_DIR}/dwebp" /tmp/codon/vendor/bin/dwebp
 
 status "Adding profile.d script to add binaries to PATH at container start"
 
@@ -55,14 +59,17 @@ cd "${WORKING_DIR}/profile.d"
 
 cp -v * "${BUILD_DIR}/.profile.d/" | indent
 
-cd ${WORKING_DIR}
+cd "${WORKING_DIR}"
 
-status "Added image optimizer versions"
+status "Showing image optimizer versions"
 
-echo "advpng: $(advpng --version | head -1)" | indent
-echo "gifsicle: $(gifsicle --version | head -1)" | indent
-echo "jpegoptim: $(jpegoptim --version | head -1)" | indent
-echo "jpegtran: $(jpegtran -V /dev/null 2>&1 | head -1)" | indent
-echo "optipng: $(optipng --version | head -1)" | indent
-echo "pngcrush: $(pngcrush -version)" | indent
-echo "pngquant: $(pngquant --version)" | indent
+echo "advpng: $(/tmp/codon/vendor/bin/advpng --version | head -1)" | indent
+echo "advpng: $(/tmp/codon/vendor/bin/advpng --version | head -1)" | indent
+echo "gifsicle: $(/tmp/codon/vendor/bin/gifsicle --version | head -1)" | indent
+echo "jpegoptim: $(/tmp/codon/vendor/bin/jpegoptim --version | head -1)" | indent
+echo "jpegtran: $(/tmp/codon/vendor/bin/jpegtran -V /dev/null 2>&1 | head -1)" | indent
+echo "optipng: $(/tmp/codon/vendor/bin/optipng --version | head -1)" | indent
+echo "pngcrush: $(/tmp/codon/vendor/bin/pngcrush -version)" | indent
+echo "pngquant: $(/tmp/codon/vendor/bin/pngquant --version)" | indent
+echo "cwebp: $(/tmp/codon/vendor/bin/cwebp -version)" | indent
+echo "dwebp: $(/tmp/codon/vendor/bin/dwebp -version)" | indent
