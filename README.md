@@ -9,14 +9,13 @@ This buildpack will provide the following image optimizer binaries to your Herok
 - `optipng`
 - `pngcrush`
 - `pngquant`
+- `cwebp`
+- `dwebp`
 
 This buildpack supports the following Heroku [stacks](https://devcenter.heroku.com/articles/stack):
 
-- [heroku-16](https://devcenter.heroku.com/articles/heroku-16-stack)
-- [heroku-18](https://devcenter.heroku.com/articles/heroku-18-stack)
-
-The stack [cedar-14](https://devcenter.heroku.com/articles/cedar-14-stack) is marked as deprecated and therefore should
-not be used anymore.
+- [heroku-20](https://devcenter.heroku.com/articles/heroku-20-stack)
+- [heroku-22](https://devcenter.heroku.com/articles/heroku-22-stack)
 
 During compile time of this buildpack the following steps will be done:
 
@@ -31,7 +30,3 @@ During compile time of this buildpack the following steps will be done:
 
 To use this buildpack you can add it by multiple ways to your Heroku app. Please see the Heroku
 [documentation](https://devcenter.heroku.com/articles/buildpacks#using-a-third-party-buildpack) for further information.
-
-## Contribute
-
-Please refer to [CONTRIBUTING.md](.github/CONTRIBUTE.md) for information on how to contribute to this project.
